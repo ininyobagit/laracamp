@@ -41,11 +41,21 @@
                     aria-expanded="false"
                 >
                     Halo, {{ Auth::user()->name }}
+                    @if (Auth::user()->avatar)
                     <img
                         src="{{ Auth::user()->avatar }}"
                         alt=""
                         class="user-photo"
+                        style="border-radius: 50%"
                     />
+                    @else
+                    <img
+                        src="https://ui-avatars.com/api/?name={{ Auth::user()->name }}"
+                        alt=""
+                        class="user-photo"
+                        style="border-radius: 50%"
+                    />
+                    @endif
                     <ul
                         class="dropdown-menu"
                         aria-labelledby="dropdownMenuLink"
