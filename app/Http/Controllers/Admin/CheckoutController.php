@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Mail\Checkout\Paid;
 use App\Models\Checkout;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class CheckoutController extends Controller
 {
@@ -12,6 +14,10 @@ class CheckoutController extends Controller
     {
         $checkout->is_paid = true;
         $checkout->save();
+
+        // send email to user
+        Mail::to($checkout->user->email)->send(new Paid($checkout));
+
         $request->session()
             ->flash(
                 'success',
